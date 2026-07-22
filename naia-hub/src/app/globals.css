@@ -1,0 +1,141 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: #FFF5F7;
+  --color-foreground: #1a1a2e;
+  --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-dancing), cursive;
+}
+
+.dark {
+  --color-background: #0f172a; /* deep slate blue */
+  --color-foreground: #f8fafc;
+}
+
+/* ===== Base Styles ===== */
+body {
+  background: linear-gradient(135deg, #FFF5F7 0%, #FFF0F5 50%, #F5F0FF 100%);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+}
+
+.dark body {
+  background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #172554 100%);
+}
+
+/* ===== Glassmorphism Card ===== */
+.glass-card {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow:
+    0 4px 24px rgba(255, 182, 193, 0.12),
+    0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.dark .glass-card {
+  background: rgba(30, 41, 59, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.2),
+    0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.75);
+  box-shadow:
+    0 8px 32px rgba(255, 182, 193, 0.18),
+    0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.dark .glass-card:hover {
+  background: rgba(30, 41, 59, 0.6);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* ===== Display Font ===== */
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* ===== Custom Scrollbar ===== */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 182, 193, 0.5);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 182, 193, 0.8);
+}
+
+/* ===== 3D Utilities for Flashcards ===== */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* ===== Selection ===== */
+::selection {
+  background: rgba(255, 182, 193, 0.35);
+  color: inherit;
+}
+
+/* ===== Smooth Transitions ===== */
+* {
+  scroll-behavior: smooth;
+}
+
+/* ===== Focus Ring ===== */
+*:focus-visible {
+  outline: 2px solid rgba(244, 114, 182, 0.5);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/* ===== Animations ===== */
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(3deg); }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse-soft {
+  animation: pulse-soft 2s ease-in-out infinite;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.5s ease-out forwards;
+}
