@@ -227,7 +227,7 @@ export default function ComplexTodo() {
     low: "text-blue-500 bg-blue-50",
   };
 
-  if (loading) return <div className="p-4 text-center text-sm text-gray-500 animate-pulse">Loading Tasks...</div>;
+  if (loading) return <div className="p-4 text-center text-sm text-gray-500 dark:text-white animate-pulse">Loading Tasks...</div>;
 
   return (
     <div className="w-full">
@@ -239,7 +239,7 @@ export default function ComplexTodo() {
           onChange={(e) => setNewTaskTitle(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && addTask()}
           placeholder="Add a new task..."
-          className="w-full pl-4 pr-12 py-3 rounded-2xl bg-white/60 border border-pink-100 focus:outline-none focus:ring-2 focus:ring-pink-300 transition-all placeholder-gray-400 text-gray-700 shadow-inner"
+          className="w-full pl-4 pr-12 py-3 rounded-2xl bg-white/60 border border-pink-100 focus:outline-none focus:ring-2 focus:ring-pink-300 transition-all placeholder-gray-400 dark:placeholder-white text-gray-700 dark:text-white shadow-inner"
         />
         <button
           onClick={addTask}
@@ -280,7 +280,7 @@ export default function ComplexTodo() {
                   className="flex-1 cursor-pointer"
                   onClick={() => setExpandedTaskId(expandedTaskId === task.id ? null : task.id)}
                 >
-                  <h3 className={`font-medium text-sm transition-all ${task.completed ? "text-gray-400 line-through" : "text-gray-700"}`}>
+                  <h3 className={`font-medium text-sm transition-all ${task.completed ? "text-gray-400 dark:text-white line-through" : "text-gray-700 dark:text-white"}`}>
                     {task.title}
                   </h3>
                   
@@ -294,7 +294,7 @@ export default function ComplexTodo() {
                         </span>
                       )}
                       {task.subtasks.length > 0 && (
-                        <span className="text-gray-400 flex items-center gap-1">
+                        <span className="text-gray-400 dark:text-white flex items-center gap-1">
                           <Check size={10} />
                           {task.subtasks.filter(s => s.completed).length}/{task.subtasks.length}
                         </span>
@@ -316,7 +316,7 @@ export default function ComplexTodo() {
                         e.stopPropagation();
                         deleteTask(task.id);
                       }}
-                      className="p-1.5 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                      className="p-1.5 text-gray-400 dark:text-white hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
                       title="Delete completed task"
                     >
                       <X size={16} />
@@ -324,7 +324,7 @@ export default function ComplexTodo() {
                   )}
                   <button
                     onClick={() => setExpandedTaskId(expandedTaskId === task.id ? null : task.id)}
-                    className="p-1 text-gray-400 hover:bg-gray-100 rounded-lg"
+                    className="p-1 text-gray-400 dark:text-white hover:bg-gray-100 rounded-lg"
                   >
                     {expandedTaskId === task.id ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
                   </button>
@@ -343,7 +343,7 @@ export default function ComplexTodo() {
                     <div className="p-4 space-y-4">
                       {/* Description */}
                       <div>
-                        <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1 block">Description</label>
+                        <label className="text-xs font-semibold text-gray-500 dark:text-white uppercase tracking-wider mb-1 block">Description</label>
                         <textarea
                           value={task.description || ""}
                           onChange={(e) => updateTaskDetails(task.id, { description: e.target.value })}
@@ -356,7 +356,7 @@ export default function ComplexTodo() {
                       {/* Controls Row */}
                       <div className="flex items-center gap-3">
                         <div className="flex-1">
-                          <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1 block">Priority</label>
+                          <label className="text-xs font-semibold text-gray-500 dark:text-white uppercase tracking-wider mb-1 block">Priority</label>
                           <select
                             value={task.priority}
                             onChange={(e) => updateTaskDetails(task.id, { priority: e.target.value as any })}
@@ -368,7 +368,7 @@ export default function ComplexTodo() {
                           </select>
                         </div>
                         <div className="flex-1">
-                          <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1 block">Due Date</label>
+                          <label className="text-xs font-semibold text-gray-500 dark:text-white uppercase tracking-wider mb-1 block">Due Date</label>
                           <input
                             type="date"
                             value={task.dueDate ? new Date(task.dueDate).toISOString().split('T')[0] : ""}
@@ -380,7 +380,7 @@ export default function ComplexTodo() {
 
                       {/* Subtasks */}
                       <div>
-                        <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 block">Subtasks</label>
+                        <label className="text-xs font-semibold text-gray-500 dark:text-white uppercase tracking-wider mb-2 block">Subtasks</label>
                         <div className="space-y-2">
                           {task.subtasks.map((st) => (
                             <div key={st.id} className="flex items-center gap-2 group">
@@ -392,12 +392,12 @@ export default function ComplexTodo() {
                               >
                                 {st.completed && <Check size={10} className="text-white" />}
                               </button>
-                              <span className={`text-sm flex-1 ${st.completed ? "text-gray-400 line-through" : "text-gray-600"}`}>
+                              <span className={`text-sm flex-1 ${st.completed ? "text-gray-400 dark:text-white line-through" : "text-gray-600 dark:text-white"}`}>
                                 {st.title}
                               </span>
                               <button
                                 onClick={() => deleteSubtask(task.id, st.id)}
-                                className="opacity-0 group-hover:opacity-100 p-1 text-gray-400 hover:text-red-500 transition-all"
+                                className="opacity-0 group-hover:opacity-100 p-1 text-gray-400 dark:text-white hover:text-red-500 transition-all"
                               >
                                 <Trash2 size={12} />
                               </button>
@@ -414,7 +414,7 @@ export default function ComplexTodo() {
                                   e.currentTarget.value = "";
                                 }
                               }}
-                              className="text-sm bg-transparent border-b border-gray-200 focus:border-pink-400 focus:outline-none w-full py-1 text-gray-700"
+                              className="text-sm bg-transparent border-b border-gray-200 focus:border-pink-400 focus:outline-none w-full py-1 text-gray-700 dark:text-white"
                             />
                           </div>
                         </div>
@@ -444,7 +444,7 @@ export default function ComplexTodo() {
               <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-pink-100 to-rose-100 flex items-center justify-center mx-auto mb-3">
                 <Check size={28} className="text-pink-400" />
               </div>
-              <p className="text-sm text-gray-500">You&apos;re all caught up, bnuy! ✨</p>
+              <p className="text-sm text-gray-500 dark:text-white">You&apos;re all caught up, bnuy! ✨</p>
             </motion.div>
           )}
         </AnimatePresence>

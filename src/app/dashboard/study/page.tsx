@@ -55,7 +55,7 @@ export default function StudyRoomPage() {
       {/* Header */}
       {!isZenMode && (
         <div className="flex items-center justify-between mb-4">
-          <h1 className="text-2xl font-bold text-gray-800">
+          <h1 className="text-2xl font-bold text-gray-800 dark:text-white">
             Study Room 📚
           </h1>
           <button 
@@ -87,12 +87,12 @@ export default function StudyRoomPage() {
 
         <div className="flex items-center gap-2 mb-6">
           <span className={`px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest ${
-            !isBreak ? "bg-rose-100 text-rose-600" : "bg-transparent text-gray-400"
+            !isBreak ? "bg-rose-100 text-rose-600" : "bg-transparent text-gray-400 dark:text-white"
           }`}>
             Focus
           </span>
           <span className={`px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest ${
-            isBreak ? "bg-green-100 text-green-600" : "bg-transparent text-gray-400"
+            isBreak ? "bg-green-100 text-green-600" : "bg-transparent text-gray-400 dark:text-white"
           }`}>
             Break
           </span>
@@ -100,7 +100,7 @@ export default function StudyRoomPage() {
 
         <motion.h2 
           className={`font-display text-7xl md:text-8xl tracking-tight mb-8 ${
-            isZenMode ? "text-white" : "text-gray-800"
+            isZenMode ? "text-white" : "text-gray-800 dark:text-white"
           }`}
           animate={{ scale: isActive ? 1.05 : 1 }}
           transition={{ duration: 1, repeat: isActive ? Infinity : 0, repeatType: "reverse" }}
@@ -123,7 +123,7 @@ export default function StudyRoomPage() {
           <button
             onClick={resetTimer}
             className={`w-12 h-12 rounded-full flex items-center justify-center transition-colors ${
-              isZenMode ? "bg-white/10 text-white hover:bg-white/20" : "bg-gray-100 text-gray-500 hover:bg-gray-200"
+              isZenMode ? "bg-white/10 text-white hover:bg-white/20" : "bg-gray-100 text-gray-500 dark:text-white hover:bg-gray-200"
             }`}
           >
             <RotateCcw size={18} />
@@ -134,7 +134,7 @@ export default function StudyRoomPage() {
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className={`mt-8 text-sm italic ${isZenMode ? "text-white/70" : "text-gray-500"}`}
+            className={`mt-8 text-sm italic ${isZenMode ? "text-white/70" : "text-gray-500 dark:text-white"}`}
           >
             "You're doing great, bnuy! Keep going!" 🐰
           </motion.p>
@@ -151,7 +151,7 @@ export default function StudyRoomPage() {
               <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-green-400 to-emerald-500 flex items-center justify-center">
                 <Music size={16} className="text-white" />
               </div>
-              <h2 className="font-semibold text-gray-800 text-sm">Lofi Study Beats</h2>
+              <h2 className="font-semibold text-gray-800 dark:text-white text-sm">Lofi Study Beats</h2>
             </div>
             <iframe
               style={{ borderRadius: "12px" }}

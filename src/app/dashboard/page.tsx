@@ -110,12 +110,12 @@ export default function DashboardPage() {
       >
         <div className="flex items-center gap-2.5 mb-1">
           {greeting.icon}
-          <h1 className="text-2xl font-bold text-gray-800">
+          <h1 className="text-2xl font-bold text-gray-800 dark:text-white">
             {greeting.text}, <span className="text-pink-500">Bnuy</span>{" "}
             <span className="text-xl">{greeting.emoji}</span>
           </h1>
         </div>
-        <p className="text-gray-500 text-sm ml-0.5">
+        <p className="text-gray-500 dark:text-white text-sm ml-0.5">
           {new Date().toLocaleDateString("en-US", {
             weekday: "long",
             month: "long",
@@ -136,8 +136,8 @@ export default function DashboardPage() {
       >
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h2 className="font-bold text-gray-800 text-lg">My Tasks</h2>
-            <p className="text-xs text-gray-500">Organize your day, bnuy ✨</p>
+            <h2 className="font-bold text-gray-800 dark:text-white text-lg">My Tasks</h2>
+            <p className="text-xs text-gray-500 dark:text-white">Organize your day, bnuy ✨</p>
           </div>
         </div>
         
@@ -157,14 +157,14 @@ export default function DashboardPage() {
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center">
               <Sparkles size={16} className="text-white" />
             </div>
-            <h2 className="font-semibold text-gray-800 text-sm">
+            <h2 className="font-semibold text-gray-800 dark:text-white text-sm">
               Daily Love Note
             </h2>
           </div>
           <motion.button
             whileTap={{ rotate: 180, scale: 0.9 }}
             onClick={shuffleQuote}
-            className="text-gray-400 hover:text-pink-400 transition-colors p-1"
+            className="text-gray-400 dark:text-white hover:text-pink-400 transition-colors p-1"
           >
             <RefreshCw size={16} />
           </motion.button>
@@ -175,7 +175,7 @@ export default function DashboardPage() {
             initial={{ opacity: 0, y: 5 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -5 }}
-            className="text-gray-600 text-sm leading-relaxed italic"
+            className="text-gray-600 dark:text-white text-sm leading-relaxed italic"
           >
             &ldquo;{currentQuote}&rdquo;
           </motion.p>
@@ -193,7 +193,7 @@ export default function DashboardPage() {
           <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center">
             <Camera size={16} className="text-white" />
           </div>
-          <h2 className="font-semibold text-gray-800 text-sm">
+          <h2 className="font-semibold text-gray-800 dark:text-white text-sm">
             For My Queen 👑
           </h2>
         </div>
@@ -208,7 +208,7 @@ export default function DashboardPage() {
             />
           )}
         </div>
-        <p className="text-center text-xs text-gray-400 mt-3 italic">
+        <p className="text-center text-xs text-gray-400 dark:text-white mt-3 italic">
           The most beautiful girl in the world 💗
         </p>
       </motion.div>

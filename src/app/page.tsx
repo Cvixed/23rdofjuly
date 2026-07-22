@@ -192,10 +192,10 @@ export default function PinLoginPage() {
           </motion.div>
 
           {/* Title */}
-          <h1 className="text-2xl font-bold text-gray-800 mb-1 font-display">
+          <h1 className="text-2xl font-bold text-gray-800 dark:text-white mb-1 font-display">
             {success ? "Welcome Back" : "Hey There ♡"}
           </h1>
-          <p className="text-sm text-gray-500 mb-6">
+          <p className="text-sm text-gray-500 dark:text-white mb-6">
             {success
               ? "Identity Confirmed"
               : "Enter your special code to continue"}
@@ -272,7 +272,7 @@ export default function PinLoginPage() {
                 <p className="text-pink-500 font-semibold text-lg font-display">
                   Welcome, My Queen 👑
                 </p>
-                <p className="text-gray-400 text-xs mt-1">
+                <p className="text-gray-400 dark:text-white text-xs mt-1">
                   Preparing your space...
                 </p>
               </motion.div>
@@ -295,7 +295,7 @@ export default function PinLoginPage() {
                       key={i}
                       whileTap={{ scale: 0.9 }}
                       onClick={handleDelete}
-                      className="h-14 rounded-2xl bg-white/60 hover:bg-white/80 border border-gray-200/50 text-gray-500 text-sm font-medium transition-all duration-200 active:bg-pink-50"
+                      className="h-14 rounded-2xl bg-white/60 hover:bg-white/80 border border-gray-200/50 text-gray-500 dark:text-white text-sm font-medium transition-all duration-200 active:bg-pink-50"
                     >
                       ←
                     </motion.button>
@@ -306,7 +306,7 @@ export default function PinLoginPage() {
                     key={i}
                     whileTap={{ scale: 0.9 }}
                     onClick={() => handlePinInput(key)}
-                    className="h-14 rounded-2xl bg-white/60 hover:bg-white/80 border border-gray-200/50 text-gray-700 text-xl font-medium transition-all duration-200 active:bg-pink-50 active:border-pink-300"
+                    className="h-14 rounded-2xl bg-white/60 hover:bg-white/80 border border-gray-200/50 text-gray-700 dark:text-white text-xl font-medium transition-all duration-200 active:bg-pink-50 active:border-pink-300"
                   >
                     {key}
                   </motion.button>

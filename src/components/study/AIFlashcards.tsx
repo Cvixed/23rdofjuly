@@ -58,8 +58,8 @@ export default function AIFlashcards() {
           <Sparkles size={16} className="text-white" />
         </div>
         <div>
-          <h2 className="font-semibold text-gray-800 text-sm">AI Study Buddy</h2>
-          <p className="text-xs text-gray-500">Paste your notes, I'll quiz you!</p>
+          <h2 className="font-semibold text-gray-800 dark:text-white text-sm">AI Study Buddy</h2>
+          <p className="text-xs text-gray-500 dark:text-white">Paste your notes, I'll quiz you!</p>
         </div>
       </div>
 
@@ -82,7 +82,7 @@ export default function AIFlashcards() {
         </div>
       ) : (
         <div className="space-y-4">
-          <div className="flex items-center justify-between text-xs text-gray-500 mb-2">
+          <div className="flex items-center justify-between text-xs text-gray-500 dark:text-white mb-2">
             <span>Card {currentIndex + 1} of {flashcards.length}</span>
             <button onClick={reset} className="flex items-center gap-1 hover:text-purple-500 transition-colors">
               <RefreshCw size={12} /> Start Over
@@ -98,7 +98,7 @@ export default function AIFlashcards() {
             >
               {/* Front (Question) */}
               <div className="absolute inset-0 backface-hidden bg-gradient-to-br from-white to-purple-50 rounded-xl border border-purple-100 shadow-md flex items-center justify-center p-6 text-center">
-                <p className="text-gray-700 font-medium">{flashcards[currentIndex].question}</p>
+                <p className="text-gray-700 dark:text-white font-medium">{flashcards[currentIndex].question}</p>
                 <div className="absolute bottom-3 text-[10px] text-purple-400 font-medium uppercase tracking-wider">Tap to flip</div>
               </div>
 

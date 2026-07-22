@@ -33,7 +33,7 @@ export default function MoodTracker() {
       transition={{ delay: 0.15 }}
       className="glass-card rounded-2xl p-5"
     >
-      <h2 className="font-semibold text-gray-800 text-sm mb-3">
+      <h2 className="font-semibold text-gray-800 dark:text-white text-sm mb-3">
         How are you feeling right now?
       </h2>
       <div className="grid grid-cols-4 gap-2">
@@ -46,7 +46,7 @@ export default function MoodTracker() {
               className={`flex flex-col items-center justify-center gap-1.5 p-3 rounded-xl border transition-all ${
                 isSelected
                   ? `bg-white shadow-md border-pink-400 scale-105`
-                  : `bg-white/40 border-gray-100 text-gray-500 ${m.color}`
+                  : `bg-white/40 border-gray-100 text-gray-500 dark:text-white ${m.color}`
               }`}
             >
               <div className={`${isSelected ? "text-pink-500" : ""}`}>{m.icon}</div>

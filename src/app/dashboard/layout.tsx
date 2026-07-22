@@ -93,14 +93,14 @@ export default function DashboardLayout({
                         className={`relative z-10 transition-colors duration-200 ${
                           isActive
                             ? "text-pink-500"
-                            : "text-gray-400 group-hover:text-pink-400"
+                            : "text-gray-400 dark:text-white group-hover:text-pink-400"
                         }`}
                         strokeWidth={isActive ? 2.5 : 2}
                       />
                     </div>
                     <span
                       className={`text-[10px] font-medium transition-colors duration-200 ${
-                        isActive ? "text-pink-500" : "text-gray-400"
+                        isActive ? "text-pink-500" : "text-gray-400 dark:text-white"
                       }`}
                     >
                       {item.label}

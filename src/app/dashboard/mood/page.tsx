@@ -211,16 +211,16 @@ export default function MoodPage() {
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               onClick={handleReset}
-              className="text-gray-400 hover:text-pink-400 transition-colors"
+              className="text-gray-400 dark:text-white hover:text-pink-400 transition-colors"
             >
               <ArrowLeft size={20} />
             </motion.button>
           )}
-          <h1 className="text-2xl font-bold text-gray-800">
+          <h1 className="text-2xl font-bold text-gray-800 dark:text-white">
             How are you feeling?
           </h1>
         </div>
-        <p className="text-gray-500 text-sm">
+        <p className="text-gray-500 dark:text-white text-sm">
           {selectedMood
             ? "I'm here for you, always. 💗"
             : "Tap on your current mood, bnuy ~"}
@@ -263,7 +263,7 @@ export default function MoodPage() {
                       >
                         {config.emoji}
                       </motion.div>
-                      <p className="text-sm font-semibold text-gray-700 group-hover:text-pink-500 transition-colors">
+                      <p className="text-sm font-semibold text-gray-700 dark:text-white group-hover:text-pink-500 transition-colors">
                         {config.label}
                       </p>
                     </motion.button>
@@ -280,7 +280,7 @@ export default function MoodPage() {
                 transition={{ delay: 0.4 }}
                 className="mt-8 col-span-2"
               >
-                <h2 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4 px-2">
+                <h2 className="text-xs font-bold text-gray-400 dark:text-white uppercase tracking-widest mb-4 px-2">
                   Recent Moods
                 </h2>
                 <div className="space-y-3">
@@ -292,9 +292,9 @@ export default function MoodPage() {
                       <div key={i} className={`glass-card rounded-2xl p-4 flex items-center justify-between border ${config.border}`}>
                         <div className="flex items-center gap-3">
                            <span className="text-2xl">{config.emoji}</span>
-                           <span className="font-medium text-gray-700">{config.label}</span>
+                           <span className="font-medium text-gray-700 dark:text-white">{config.label}</span>
                         </div>
-                        <div className="text-[10px] text-gray-400 font-medium">
+                        <div className="text-[10px] text-gray-400 dark:text-white font-medium">
                           {date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} • {date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}
                         </div>
                       </div>
@@ -321,10 +321,10 @@ export default function MoodPage() {
                   {moodConfig[selectedMood].emoji}
                 </span>
                 <div>
-                  <p className="font-semibold text-gray-800">
+                  <p className="font-semibold text-gray-800 dark:text-white">
                     Feeling {moodConfig[selectedMood].label}
                   </p>
-                  <p className="text-xs text-gray-500">
+                  <p className="text-xs text-gray-500 dark:text-white">
                     {new Date().toLocaleTimeString("en-US", {
                       hour: "numeric",
                       minute: "2-digit",
@@ -332,7 +332,7 @@ export default function MoodPage() {
                   </p>
                 </div>
               </div>
-              <p className="text-gray-600 text-sm leading-relaxed italic">
+              <p className="text-gray-600 dark:text-white text-sm leading-relaxed italic">
                 &ldquo;{moodMessage}&rdquo;
               </p>
             </div>
@@ -349,7 +349,7 @@ export default function MoodPage() {
                 <div className="glass-card rounded-2xl p-4">
                   <div className="flex items-center gap-2 mb-3">
                     <Music size={18} className="text-green-500" />
-                    <h3 className="text-sm font-semibold text-gray-700">
+                    <h3 className="text-sm font-semibold text-gray-700 dark:text-white">
                       Some music to calm your soul 🎵
                     </h3>
                   </div>
@@ -370,7 +370,7 @@ export default function MoodPage() {
                 <div className="glass-card rounded-2xl p-4">
                   <div className="flex items-center gap-2 mb-3">
                     <Camera size={18} className="text-pink-500" />
-                    <h3 className="text-sm font-semibold text-gray-700">
+                    <h3 className="text-sm font-semibold text-gray-700 dark:text-white">
                       Something to make you smile 📸
                     </h3>
                   </div>
@@ -394,7 +394,7 @@ export default function MoodPage() {
                       className="text-pink-500"
                       fill="currentColor"
                     />
-                    <h3 className="text-sm font-semibold text-gray-700">
+                    <h3 className="text-sm font-semibold text-gray-700 dark:text-white">
                       Our precious memories together 💕
                     </h3>
                   </div>
@@ -405,7 +405,7 @@ export default function MoodPage() {
                 <div className="glass-card rounded-2xl p-4">
                   <div className="flex items-center gap-2 mb-3">
                     <Music size={18} className="text-green-500" />
-                    <h3 className="text-sm font-semibold text-gray-700">
+                    <h3 className="text-sm font-semibold text-gray-700 dark:text-white">
                       Our playlist 🎶
                     </h3>
                   </div>
@@ -444,10 +444,10 @@ export default function MoodPage() {
                   >
                     🎉
                   </motion.div>
-                  <h3 className="text-lg font-bold text-gray-800 mb-2">
+                  <h3 className="text-lg font-bold text-gray-800 dark:text-white mb-2">
                     Yaaay! Love to see it!
                   </h3>
-                  <p className="text-gray-500 text-sm">
+                  <p className="text-gray-500 dark:text-white text-sm">
                     Your happiness is the most beautiful thing, bnuy. Keep
                     shining! ✨
                   </p>
@@ -457,7 +457,7 @@ export default function MoodPage() {
                 <div className="glass-card rounded-2xl p-4">
                   <div className="flex items-center gap-2 mb-3">
                     <Music size={18} className="text-green-500" />
-                    <h3 className="text-sm font-semibold text-gray-700">
+                    <h3 className="text-sm font-semibold text-gray-700 dark:text-white">
                       Keep the vibes going! 🎵
                     </h3>
                   </div>
