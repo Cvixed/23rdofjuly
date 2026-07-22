@@ -141,10 +141,10 @@ export default function ChatPage() {
             <Bot size={20} className="text-white" />
           </div>
           <div>
-            <h1 className="text-lg font-bold text-gray-800">NaiaBot</h1>
+            <h1 className="text-lg font-bold text-gray-800 dark:text-gray-100">NaiaBot</h1>
             <div className="flex items-center gap-1.5">
               <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-gray-500 dark:text-gray-400">
                 Always here for you, bnuy 💗
               </p>
             </div>
@@ -163,10 +163,10 @@ export default function ChatPage() {
             <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-pink-100 to-rose-100 flex items-center justify-center mb-4">
               <Sparkles size={28} className="text-pink-400" />
             </div>
-            <h3 className="font-semibold text-gray-700 mb-1">
+            <h3 className="font-semibold text-gray-700 dark:text-gray-200 mb-1">
               Hey there, bnuy! 🐰
             </h3>
-            <p className="text-sm text-gray-400 max-w-[250px]">
+            <p className="text-sm text-gray-500 dark:text-gray-300 max-w-[250px]">
               I&apos;m NaiaBot, your personal companion. Tell me anything —
               I&apos;m all ears! 💕
             </p>
@@ -182,7 +182,7 @@ export default function ChatPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3 + i * 0.1 }}
                   onClick={() => handleSubmit(null as any, suggestion)}
-                  className="w-full px-4 py-2.5 rounded-xl border border-pink-200 bg-pink-50/50 text-sm text-gray-600 hover:bg-pink-100/50 hover:border-pink-300 transition-all text-left"
+                  className="w-full px-4 py-2.5 rounded-xl border border-pink-200 bg-pink-50/50 dark:bg-pink-900/20 dark:border-pink-800/50 text-sm text-gray-700 dark:text-gray-200 hover:bg-pink-100/50 dark:hover:bg-pink-900/40 hover:border-pink-300 transition-all text-left"
                 >
                   {suggestion}
                 </motion.button>
@@ -221,7 +221,7 @@ export default function ChatPage() {
                 className={`max-w-[80%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
                   message.role === "user"
                     ? "bg-gradient-to-br from-pink-400 to-rose-500 text-white rounded-tr-md"
-                    : "glass-card rounded-tl-md text-gray-700"
+                    : "glass-card rounded-tl-md text-gray-800 dark:text-gray-200"
                 }`}
               >
                 {message.content}
@@ -237,7 +237,7 @@ export default function ChatPage() {
               <div className="w-7 h-7 rounded-lg flex-shrink-0 flex items-center justify-center bg-gradient-to-br from-pink-400 to-rose-500">
                 <Bot size={14} className="text-white" />
               </div>
-              <div className="max-w-[80%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed glass-card rounded-tl-md text-gray-700">
+              <div className="max-w-[80%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed glass-card rounded-tl-md text-gray-800 dark:text-gray-200">
                 <div className="flex gap-1 py-1">
                   <motion.div animate={{ scale: [1, 1.3, 1] }} transition={{ duration: 0.6, repeat: Infinity, delay: 0 }} className="w-1.5 h-1.5 rounded-full bg-pink-300" />
                   <motion.div animate={{ scale: [1, 1.3, 1] }} transition={{ duration: 0.6, repeat: Infinity, delay: 0.2 }} className="w-1.5 h-1.5 rounded-full bg-pink-300" />
@@ -273,7 +273,7 @@ export default function ChatPage() {
             }}
             placeholder="Type a message..."
             rows={1}
-            className="flex-1 px-3 py-2 bg-transparent text-sm text-gray-700 placeholder-gray-400 focus:outline-none resize-none max-h-[120px]"
+            className="flex-1 px-3 py-2 bg-transparent text-sm text-gray-800 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none resize-none max-h-[120px]"
           />
           <motion.button
             whileTap={{ scale: 0.9 }}
