@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -13,53 +14,6 @@ const navItems = [
   { href: "?tab=study", id: "study", label: "Study", icon: BookOpen },
   { href: "?tab=chat", id: "chat", label: "Chat", icon: MessageCircleHeart },
 ];
-
-export default function DashboardLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const router = useRouter();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-    const isAuth = sessionStorage.getItem("naia-auth");
-    if (isAuth !== "true") {
-      router.replace("/");
-    }
-  }, [router]);
-
-  if (!mounted) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-pink-50 via-rose-50 to-purple-50 flex items-center justify-center">
-        <motion.div
-          animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-          className="text-pink-400 text-4xl"
-        >
-          ♡
-        </motion.div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-rose-50/50 to-purple-50/30 flex flex-col">
-      {/* Main Content Area */}
-      <main className="flex-1 pb-24 overflow-y-auto">
-        <AnimatePresence mode="wait">
-          <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="h-full"
-          >
-            {children}
-          </motion.div>
-        </AnimatePresence>
-      </main>
 
 function BottomNav() {
   const searchParams = useSearchParams();
