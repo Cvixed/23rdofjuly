@@ -20,7 +20,7 @@ function BottomNav() {
   const activeTab = searchParams.get("tab") || "home";
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50">
+    <nav className="fixed bottom-0 left-0 right-0 z-50 pb-[env(safe-area-inset-bottom)]">
       <div className="mx-auto max-w-lg">
         <div className="mx-3 mb-3 rounded-2xl glass-card border border-white/30 dark:border-white/10 shadow-lg shadow-pink-200/20">
           <div className="flex items-center justify-around py-2">
@@ -49,15 +49,15 @@ function BottomNav() {
                       size={22}
                       className={`relative z-10 transition-colors duration-200 ${
                         isActive
-                          ? "text-pink-500"
-                          : "text-gray-400 dark:text-white group-hover:text-pink-400"
+                          ? "text-pink-500 dark:text-pink-400"
+                          : "text-gray-400 dark:text-gray-300 group-hover:text-pink-400"
                       }`}
                       strokeWidth={isActive ? 2.5 : 2}
                     />
                   </div>
                   <span
                     className={`text-[10px] font-medium transition-colors duration-200 ${
-                      isActive ? "text-pink-500" : "text-gray-400 dark:text-white"
+                      isActive ? "text-pink-500 dark:text-pink-400" : "text-gray-400 dark:text-gray-300"
                     }`}
                   >
                     {item.label}
@@ -103,7 +103,7 @@ export default function DashboardLayout({
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-rose-50/50 to-purple-50/30 dark:from-gray-900 dark:via-purple-900/20 dark:to-gray-900 flex flex-col">
+    <div className="min-h-[100dvh] bg-gradient-to-br from-pink-50 via-rose-50/50 to-purple-50/30 dark:from-gray-900 dark:via-purple-900/20 dark:to-gray-900 flex flex-col">
       <main className="flex-1 pb-24 overflow-y-auto">
         <AnimatePresence mode="wait">
           <motion.div

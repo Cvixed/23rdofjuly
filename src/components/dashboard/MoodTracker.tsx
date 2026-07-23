@@ -45,8 +45,8 @@ export default function MoodTracker() {
               onClick={() => handleMoodSelect(m.type)}
               className={`flex flex-col items-center justify-center gap-1.5 p-3 rounded-xl border transition-all ${
                 isSelected
-                  ? `bg-white shadow-md border-pink-400 scale-105`
-                  : `bg-white/40 border-gray-100 text-gray-500 dark:text-white ${m.color}`
+                  ? `bg-white dark:bg-slate-700 shadow-md border-pink-400 scale-105`
+                  : `bg-white/40 dark:bg-slate-800/40 border-gray-100 dark:border-slate-700 text-gray-500 dark:text-gray-400 ${m.color}`
               }`}
             >
               <div className={`${isSelected ? "text-pink-500" : ""}`}>{m.icon}</div>

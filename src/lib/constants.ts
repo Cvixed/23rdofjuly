@@ -1,9 +1,9 @@
 export const SECRET_PIN = "230706";
 
-export const SPOTIFY_PLAYLISTS = [
+export const PLAYLISTS = [
   "https://open.spotify.com/embed/playlist/6Qnk3BAEAhnAKTNx38hcRt?utm_source=generator&theme=0&pt=bc3990d3ac5d3c0299a1e89a8cfd2b8f",
-  "https://open.spotify.com/embed/playlist/2RmMS78pFWiKwD0QhjTC6y?utm_source=generator&theme=0",
-  "https://open.spotify.com/embed/playlist/2YYUGoxuBuveqT0XBcZH6d?utm_source=generator&theme=0",
+  "https://embed.music.apple.com/id/playlist/the-girls/pl.u-ZmblVKWIV3EyjBD",
+  "https://embed.music.apple.com/id/playlist/tatiana/pl.u-6mo4l1WF8XaMbd1",
 ];
 
 export const NAIA_PHOTOS = Array.from({ length: 15 }, (_, i) => `/images/naia/naia-${i + 1}.jpg`);

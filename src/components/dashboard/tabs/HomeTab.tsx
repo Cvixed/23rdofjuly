@@ -115,7 +115,7 @@ export default function DashboardPage() {
             <span className="text-xl">{greeting.emoji}</span>
           </h1>
         </div>
-        <p className="text-gray-500 dark:text-white text-sm ml-0.5">
+        <p className="text-gray-600 dark:text-gray-300 text-sm ml-0.5">
           {new Date().toLocaleDateString("en-US", {
             weekday: "long",
             month: "long",
@@ -137,7 +137,7 @@ export default function DashboardPage() {
         <div className="flex items-center justify-between mb-4">
           <div>
             <h2 className="font-bold text-gray-800 dark:text-white text-lg">My Tasks</h2>
-            <p className="text-xs text-gray-500 dark:text-white">Organize your day, bnuy ✨</p>
+            <p className="text-xs text-gray-600 dark:text-gray-300">Organize your day, bnuy ✨</p>
           </div>
         </div>
         
@@ -164,7 +164,7 @@ export default function DashboardPage() {
           <motion.button
             whileTap={{ rotate: 180, scale: 0.9 }}
             onClick={shuffleQuote}
-            className="text-gray-400 dark:text-white hover:text-pink-400 transition-colors p-1"
+            className="text-gray-500 dark:text-gray-400 hover:text-pink-400 transition-colors p-1"
           >
             <RefreshCw size={16} />
           </motion.button>
@@ -175,7 +175,7 @@ export default function DashboardPage() {
             initial={{ opacity: 0, y: 5 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -5 }}
-            className="text-gray-600 dark:text-white text-sm leading-relaxed italic"
+            className="text-gray-700 dark:text-gray-200 text-sm leading-relaxed italic"
           >
             &ldquo;{currentQuote}&rdquo;
           </motion.p>
@@ -197,7 +197,7 @@ export default function DashboardPage() {
             For My Queen 👑
           </h2>
         </div>
-        <div className="relative w-full aspect-[4/5] rounded-xl overflow-hidden shadow-inner bg-pink-50 group">
+        <div className="relative w-full aspect-[4/5] rounded-xl overflow-hidden shadow-inner dark:shadow-none bg-pink-50 dark:bg-pink-900/20 group">
           {randomPhoto && (
             <Image
               src={randomPhoto}
@@ -208,7 +208,7 @@ export default function DashboardPage() {
             />
           )}
         </div>
-        <p className="text-center text-xs text-gray-400 dark:text-white mt-3 italic">
+        <p className="text-center text-xs text-gray-500 dark:text-gray-400 mt-3 italic">
           The most beautiful girl in the world 💗
         </p>
       </motion.div>

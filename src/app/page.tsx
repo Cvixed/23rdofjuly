@@ -106,7 +106,7 @@ export default function PinLoginPage() {
   const numpadKeys = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "", "0", "del"];
 
   return (
-    <main className="min-h-screen relative overflow-hidden flex items-center justify-center bg-gradient-to-br from-pink-100 via-rose-50 to-purple-100">
+    <main className="min-h-[100dvh] relative overflow-hidden flex items-center justify-center bg-gradient-to-br from-pink-100 via-rose-50 to-purple-100 dark:from-slate-900 dark:via-purple-900/20 dark:to-slate-900">
       {/* Animated Background */}
       <div className="absolute inset-0 overflow-hidden">
         {Array.from({ length: 15 }).map((_, i) => (
@@ -195,7 +195,7 @@ export default function PinLoginPage() {
           <h1 className="text-2xl font-bold text-gray-800 dark:text-white mb-1 font-display">
             {success ? "Welcome Back" : "Hey There ♡"}
           </h1>
-          <p className="text-sm text-gray-500 dark:text-white mb-6">
+          <p className="text-sm text-gray-600 dark:text-gray-300 mb-6">
             {success
               ? "Identity Confirmed"
               : "Enter your special code to continue"}
@@ -208,14 +208,14 @@ export default function PinLoginPage() {
                 key={i}
                 className={`w-11 h-11 rounded-xl border-2 flex items-center justify-center text-lg font-bold transition-all duration-300 ${
                   error
-                    ? "border-red-400 bg-red-50"
+                    ? "border-red-400 bg-red-50 dark:bg-red-900/30"
                     : success
-                    ? "border-green-400 bg-green-50"
+                    ? "border-green-400 bg-green-50 dark:bg-green-900/30"
                     : digit
-                    ? "border-pink-400 bg-pink-50"
+                    ? "border-pink-400 bg-pink-50 dark:bg-pink-900/50 dark:border-pink-500"
                     : i === activeIndex
-                    ? "border-pink-400 bg-white shadow-md shadow-pink-200/50"
-                    : "border-gray-200 bg-white/50"
+                    ? "border-pink-400 bg-white dark:bg-slate-800 shadow-md shadow-pink-200/50 dark:shadow-pink-900/50 dark:border-pink-500"
+                    : "border-gray-200 dark:border-slate-700 bg-white/50 dark:bg-slate-800/50"
                 }`}
                 animate={
                   digit
@@ -239,7 +239,7 @@ export default function PinLoginPage() {
                         ? "bg-red-400"
                         : success
                         ? "bg-green-400"
-                        : "bg-pink-400"
+                        : "bg-pink-400 dark:bg-pink-500"
                     }`}
                   />
                 )}
@@ -272,7 +272,7 @@ export default function PinLoginPage() {
                 <p className="text-pink-500 font-semibold text-lg font-display">
                   Welcome, My Queen 👑
                 </p>
-                <p className="text-gray-400 dark:text-white text-xs mt-1">
+                <p className="text-gray-500 dark:text-gray-300 text-xs mt-1">
                   Preparing your space...
                 </p>
               </motion.div>
@@ -295,7 +295,7 @@ export default function PinLoginPage() {
                       key={i}
                       whileTap={{ scale: 0.9 }}
                       onClick={handleDelete}
-                      className="h-14 rounded-2xl bg-white/60 hover:bg-white/80 border border-gray-200/50 text-gray-500 dark:text-white text-sm font-medium transition-all duration-200 active:bg-pink-50"
+                      className="h-14 rounded-2xl bg-white/60 dark:bg-slate-800/60 hover:bg-white/80 dark:hover:bg-slate-800/80 border border-gray-200/50 dark:border-slate-700 text-gray-500 dark:text-gray-300 text-sm font-medium transition-all duration-200 active:bg-pink-50 dark:active:bg-slate-700"
                     >
                       ←
                     </motion.button>
@@ -306,7 +306,7 @@ export default function PinLoginPage() {
                     key={i}
                     whileTap={{ scale: 0.9 }}
                     onClick={() => handlePinInput(key)}
-                    className="h-14 rounded-2xl bg-white/60 hover:bg-white/80 border border-gray-200/50 text-gray-700 dark:text-white text-xl font-medium transition-all duration-200 active:bg-pink-50 active:border-pink-300"
+                    className="h-14 rounded-2xl bg-white/60 dark:bg-slate-800/60 hover:bg-white/80 dark:hover:bg-slate-800/80 border border-gray-200/50 dark:border-slate-700 text-gray-700 dark:text-white text-xl font-medium transition-all duration-200 active:bg-pink-50 dark:active:bg-slate-700 active:border-pink-300 dark:active:border-pink-500"
                   >
                     {key}
                   </motion.button>

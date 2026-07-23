@@ -60,7 +60,7 @@ export default function StudyRoomPage() {
           </h1>
           <button 
             onClick={() => setIsZenMode(true)}
-            className="flex items-center gap-1.5 text-xs bg-indigo-50 text-indigo-600 px-3 py-1.5 rounded-full hover:bg-indigo-100 transition-colors"
+            className="flex items-center gap-1.5 text-xs bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 px-3 py-1.5 rounded-full hover:bg-indigo-100 dark:hover:bg-indigo-900/50 transition-colors"
           >
             <Maximize2 size={12} /> Zen Mode
           </button>
@@ -87,12 +87,12 @@ export default function StudyRoomPage() {
 
         <div className="flex items-center gap-2 mb-6">
           <span className={`px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest ${
-            !isBreak ? "bg-rose-100 text-rose-600" : "bg-transparent text-gray-400 dark:text-white"
+            !isBreak ? "bg-rose-100 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400" : "bg-transparent text-gray-400 dark:text-gray-500"
           }`}>
             Focus
           </span>
           <span className={`px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest ${
-            isBreak ? "bg-green-100 text-green-600" : "bg-transparent text-gray-400 dark:text-white"
+            isBreak ? "bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400" : "bg-transparent text-gray-400 dark:text-gray-500"
           }`}>
             Break
           </span>
@@ -113,7 +113,7 @@ export default function StudyRoomPage() {
             onClick={toggleTimer}
             className={`w-16 h-16 rounded-full flex items-center justify-center shadow-lg transition-transform hover:scale-105 active:scale-95 ${
               isActive 
-                ? "bg-white text-rose-500 border-2 border-rose-100" 
+                ? "bg-white dark:bg-slate-800 text-rose-500 dark:text-rose-400 border-2 border-rose-100 dark:border-slate-700" 
                 : "bg-gradient-to-br from-rose-400 to-pink-500 text-white"
             }`}
           >
@@ -123,7 +123,7 @@ export default function StudyRoomPage() {
           <button
             onClick={resetTimer}
             className={`w-12 h-12 rounded-full flex items-center justify-center transition-colors ${
-              isZenMode ? "bg-white/10 text-white hover:bg-white/20" : "bg-gray-100 text-gray-500 dark:text-white hover:bg-gray-200"
+              isZenMode ? "bg-white/10 text-white hover:bg-white/20" : "bg-gray-100 dark:bg-slate-700 text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-slate-600"
             }`}
           >
             <RotateCcw size={18} />
@@ -155,7 +155,7 @@ export default function StudyRoomPage() {
             </div>
             <iframe
               style={{ borderRadius: "12px" }}
-              src="https://open.spotify.com/embed/playlist/37i9dQZF1DX8Uebhn9wzrS?utm_source=generator&theme=0"
+              src="https://embed.music.apple.com/id/playlist/nikis-version/pl.u-Ymb0vdyFg0YpJvy"
               width="100%"
               height="152"
               frameBorder="0"

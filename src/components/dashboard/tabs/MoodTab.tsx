@@ -18,7 +18,7 @@ import {
   happyMessages,
   getRandomQuote,
 } from "@/lib/quotes";
-import { SPOTIFY_PLAYLISTS, COUPLE_PHOTOS } from "@/lib/constants";
+import { PLAYLISTS, COUPLE_PHOTOS } from "@/lib/constants";
 import Image from "next/image";
 
 type Mood = "happy" | "tired" | "stressed" | "missing" | null;
@@ -211,7 +211,7 @@ export default function MoodPage() {
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               onClick={handleReset}
-              className="text-gray-400 dark:text-white hover:text-pink-400 transition-colors"
+              className="text-gray-500 dark:text-gray-300 hover:text-pink-400 transition-colors"
             >
               <ArrowLeft size={20} />
             </motion.button>
@@ -220,7 +220,7 @@ export default function MoodPage() {
             How are you feeling?
           </h1>
         </div>
-        <p className="text-gray-500 dark:text-white text-sm">
+        <p className="text-gray-600 dark:text-gray-300 text-sm">
           {selectedMood
             ? "I'm here for you, always. 💗"
             : "Tap on your current mood, bnuy ~"}
@@ -280,7 +280,7 @@ export default function MoodPage() {
                 transition={{ delay: 0.4 }}
                 className="mt-8 col-span-2"
               >
-                <h2 className="text-xs font-bold text-gray-400 dark:text-white uppercase tracking-widest mb-4 px-2">
+                <h2 className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-4 px-2">
                   Recent Moods
                 </h2>
                 <div className="space-y-3">
@@ -294,7 +294,7 @@ export default function MoodPage() {
                            <span className="text-2xl">{config.emoji}</span>
                            <span className="font-medium text-gray-700 dark:text-white">{config.label}</span>
                         </div>
-                        <div className="text-[10px] text-gray-400 dark:text-white font-medium">
+                        <div className="text-[10px] text-gray-500 dark:text-gray-400 font-medium">
                           {date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} • {date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}
                         </div>
                       </div>
@@ -324,7 +324,7 @@ export default function MoodPage() {
                   <p className="font-semibold text-gray-800 dark:text-white">
                     Feeling {moodConfig[selectedMood].label}
                   </p>
-                  <p className="text-xs text-gray-500 dark:text-white">
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
                     {new Date().toLocaleTimeString("en-US", {
                       hour: "numeric",
                       minute: "2-digit",
@@ -332,7 +332,7 @@ export default function MoodPage() {
                   </p>
                 </div>
               </div>
-              <p className="text-gray-600 dark:text-white text-sm leading-relaxed italic">
+              <p className="text-gray-700 dark:text-gray-200 text-sm leading-relaxed italic">
                 &ldquo;{moodMessage}&rdquo;
               </p>
             </div>
@@ -355,7 +355,7 @@ export default function MoodPage() {
                   </div>
                   <div className="rounded-xl overflow-hidden">
                     <iframe
-                      src={SPOTIFY_PLAYLISTS[0]}
+                      src={PLAYLISTS[0]}
                       width="100%"
                       height="152"
                       frameBorder="0"
@@ -411,7 +411,7 @@ export default function MoodPage() {
                   </div>
                   <div className="rounded-xl overflow-hidden">
                     <iframe
-                      src={SPOTIFY_PLAYLISTS[1]}
+                      src={PLAYLISTS[1]}
                       width="100%"
                       height="152"
                       frameBorder="0"
@@ -447,7 +447,7 @@ export default function MoodPage() {
                   <h3 className="text-lg font-bold text-gray-800 dark:text-white mb-2">
                     Yaaay! Love to see it!
                   </h3>
-                  <p className="text-gray-500 dark:text-white text-sm">
+                  <p className="text-gray-600 dark:text-gray-300 text-sm">
                     Your happiness is the most beautiful thing, bnuy. Keep
                     shining! ✨
                   </p>
@@ -463,7 +463,7 @@ export default function MoodPage() {
                   </div>
                   <div className="rounded-xl overflow-hidden">
                     <iframe
-                      src={SPOTIFY_PLAYLISTS[2]}
+                      src={PLAYLISTS[2]}
                       width="100%"
                       height="152"
                       frameBorder="0"

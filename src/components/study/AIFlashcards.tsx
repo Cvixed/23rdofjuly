@@ -59,7 +59,7 @@ export default function AIFlashcards() {
         </div>
         <div>
           <h2 className="font-semibold text-gray-800 dark:text-white text-sm">AI Study Buddy</h2>
-          <p className="text-xs text-gray-500 dark:text-white">Paste your notes, I'll quiz you!</p>
+          <p className="text-xs text-gray-500 dark:text-gray-400">Paste your notes, I'll quiz you!</p>
         </div>
       </div>
 
@@ -69,7 +69,7 @@ export default function AIFlashcards() {
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
             placeholder="Paste your study material here (e.g., Biology notes, History text)..."
-            className="w-full h-32 text-sm bg-white/60 border border-purple-100 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-purple-300 resize-none shadow-inner"
+            className="w-full h-32 text-sm bg-white/60 dark:bg-slate-800/60 border border-purple-100 dark:border-purple-800/50 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-purple-300 resize-none shadow-inner dark:shadow-none"
           />
           <button
             onClick={generateFlashcards}
@@ -82,7 +82,7 @@ export default function AIFlashcards() {
         </div>
       ) : (
         <div className="space-y-4">
-          <div className="flex items-center justify-between text-xs text-gray-500 dark:text-white mb-2">
+          <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 mb-2">
             <span>Card {currentIndex + 1} of {flashcards.length}</span>
             <button onClick={reset} className="flex items-center gap-1 hover:text-purple-500 transition-colors">
               <RefreshCw size={12} /> Start Over
@@ -97,8 +97,8 @@ export default function AIFlashcards() {
               className="w-full h-full preserve-3d relative"
             >
               {/* Front (Question) */}
-              <div className="absolute inset-0 backface-hidden bg-gradient-to-br from-white to-purple-50 rounded-xl border border-purple-100 shadow-md flex items-center justify-center p-6 text-center">
-                <p className="text-gray-700 dark:text-white font-medium">{flashcards[currentIndex].question}</p>
+              <div className="absolute inset-0 backface-hidden bg-gradient-to-br from-white dark:from-slate-800 to-purple-50 dark:to-purple-900/30 rounded-xl border border-purple-100 dark:border-purple-800/50 shadow-md flex items-center justify-center p-6 text-center">
+                <p className="text-gray-700 dark:text-gray-200 font-medium">{flashcards[currentIndex].question}</p>
                 <div className="absolute bottom-3 text-[10px] text-purple-400 font-medium uppercase tracking-wider">Tap to flip</div>
               </div>
 
@@ -114,7 +114,7 @@ export default function AIFlashcards() {
 
           <button
             onClick={nextCard}
-            className="w-full py-3 rounded-xl bg-purple-50 text-purple-600 font-medium text-sm flex items-center justify-center gap-2 hover:bg-purple-100 transition-colors"
+            className="w-full py-3 rounded-xl bg-purple-50 dark:bg-purple-900/30 text-purple-600 font-medium text-sm flex items-center justify-center gap-2 hover:bg-purple-100 dark:hover:bg-purple-900/40 transition-colors"
           >
             Next Card <ChevronRight size={16} />
           </button>

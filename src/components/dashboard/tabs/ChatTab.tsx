@@ -160,7 +160,7 @@ export default function ChatPage() {
             animate={{ opacity: 1, y: 0 }}
             className="flex flex-col items-center justify-center h-full text-center"
           >
-            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-pink-100 to-rose-100 flex items-center justify-center mb-4">
+            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-pink-100 to-rose-100 dark:from-pink-900/30 dark:to-rose-900/30 flex items-center justify-center mb-4">
               <Sparkles size={28} className="text-pink-400" />
             </div>
             <h3 className="font-semibold text-gray-700 dark:text-white mb-1">
@@ -182,7 +182,7 @@ export default function ChatPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3 + i * 0.1 }}
                   onClick={() => handleSubmit(null as any, suggestion)}
-                  className="w-full px-4 py-2.5 rounded-xl border border-pink-200 bg-pink-50/50 dark:bg-pink-900/20 dark:border-pink-800/50 text-sm text-gray-700 dark:text-white hover:bg-pink-100/50 dark:hover:bg-pink-900/40 hover:border-pink-300 transition-all text-left"
+                  className="w-full px-4 py-2.5 rounded-xl border border-pink-200 bg-pink-50/50 dark:bg-pink-900/20 dark:border-pink-800/50 text-sm text-gray-700 dark:text-white hover:bg-pink-100/50 dark:hover:bg-pink-900/40 hover:border-pink-300 dark:hover:border-pink-600 transition-all text-left"
                 >
                   {suggestion}
                 </motion.button>
@@ -273,7 +273,7 @@ export default function ChatPage() {
             }}
             placeholder="Type a message..."
             rows={1}
-            className="flex-1 px-3 py-2 bg-transparent text-sm text-gray-800 dark:text-white placeholder-gray-400 dark:placeholder-white focus:outline-none resize-none max-h-[120px]"
+            className="flex-1 px-3 py-2 bg-transparent text-sm text-gray-800 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none resize-none max-h-[120px]"
           />
           <motion.button
             whileTap={{ scale: 0.9 }}

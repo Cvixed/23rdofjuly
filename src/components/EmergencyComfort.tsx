@@ -39,7 +39,7 @@ export default function EmergencyComfort() {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 z-40 w-14 h-14 rounded-full bg-gradient-to-br from-rose-400 to-pink-500 shadow-xl shadow-pink-500/30 flex items-center justify-center border-2 border-white/50"
+        className="fixed bottom-[calc(6rem+env(safe-area-inset-bottom))] right-6 z-40 w-14 h-14 rounded-full bg-gradient-to-br from-rose-400 to-pink-500 shadow-xl shadow-pink-500/30 flex items-center justify-center border-2 border-white/50"
         title="Need a hug?"
       >
         <Heart className="text-white animate-pulse" fill="white" size={24} />

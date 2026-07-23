@@ -222,9 +222,9 @@ export default function ComplexTodo() {
   };
 
   const priorityColors = {
-    high: "text-rose-500 bg-rose-50",
-    medium: "text-orange-500 bg-orange-50",
-    low: "text-blue-500 bg-blue-50",
+    high: "text-rose-500 bg-rose-50 dark:bg-rose-900/30",
+    medium: "text-orange-500 bg-orange-50 dark:bg-orange-900/30",
+    low: "text-blue-500 bg-blue-50 dark:bg-blue-900/30",
   };
 
   if (loading) return <div className="p-4 text-center text-sm text-gray-500 dark:text-white animate-pulse">Loading Tasks...</div>;
@@ -239,7 +239,7 @@ export default function ComplexTodo() {
           onChange={(e) => setNewTaskTitle(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && addTask()}
           placeholder="Add a new task..."
-          className="w-full pl-4 pr-12 py-3 rounded-2xl bg-white/60 border border-pink-100 focus:outline-none focus:ring-2 focus:ring-pink-300 transition-all placeholder-gray-400 dark:placeholder-white text-gray-700 dark:text-white shadow-inner"
+          className="w-full pl-4 pr-12 py-3 rounded-2xl bg-white/60 dark:bg-slate-800/60 border border-pink-100 dark:border-pink-800/50 focus:outline-none focus:ring-2 focus:ring-pink-300 transition-all placeholder-gray-400 dark:placeholder-gray-500 text-gray-700 dark:text-gray-200 shadow-inner dark:shadow-none"
         />
         <button
           onClick={addTask}
@@ -260,7 +260,7 @@ export default function ComplexTodo() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95 }}
               className={`rounded-2xl border transition-all ${
-                task.completed ? "bg-white/40 border-gray-100" : "bg-white/80 border-pink-100 shadow-sm"
+                task.completed ? "bg-white/40 dark:bg-slate-800/40 border-gray-100 dark:border-slate-700" : "bg-white/80 dark:bg-slate-800/80 border-pink-100 dark:border-pink-800/50 shadow-sm"
               } overflow-hidden`}
             >
               {/* Task Header */}
@@ -280,7 +280,7 @@ export default function ComplexTodo() {
                   className="flex-1 cursor-pointer"
                   onClick={() => setExpandedTaskId(expandedTaskId === task.id ? null : task.id)}
                 >
-                  <h3 className={`font-medium text-sm transition-all ${task.completed ? "text-gray-400 dark:text-white line-through" : "text-gray-700 dark:text-white"}`}>
+                  <h3 className={`font-medium text-sm transition-all ${task.completed ? "text-gray-400 dark:text-gray-500 line-through" : "text-gray-700 dark:text-gray-200"}`}>
                     {task.title}
                   </h3>
                   
@@ -294,13 +294,13 @@ export default function ComplexTodo() {
                         </span>
                       )}
                       {task.subtasks.length > 0 && (
-                        <span className="text-gray-400 dark:text-white flex items-center gap-1">
+                        <span className="text-gray-400 dark:text-gray-500 flex items-center gap-1">
                           <Check size={10} />
                           {task.subtasks.filter(s => s.completed).length}/{task.subtasks.length}
                         </span>
                       )}
                       {task.dueDate && (
-                        <span className="text-pink-500 flex items-center gap-1 bg-pink-50 px-2 py-0.5 rounded-md">
+                        <span className="text-pink-500 flex items-center gap-1 bg-pink-50 dark:bg-pink-900/30 px-2 py-0.5 rounded-md">
                           <Calendar size={10} />
                           {new Date(task.dueDate).toLocaleDateString()}
                         </span>
@@ -316,7 +316,7 @@ export default function ComplexTodo() {
                         e.stopPropagation();
                         deleteTask(task.id);
                       }}
-                      className="p-1.5 text-gray-400 dark:text-white hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                      className="p-1.5 text-gray-400 dark:text-gray-500 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-lg transition-colors"
                       title="Delete completed task"
                     >
                       <X size={16} />
@@ -324,7 +324,7 @@ export default function ComplexTodo() {
                   )}
                   <button
                     onClick={() => setExpandedTaskId(expandedTaskId === task.id ? null : task.id)}
-                    className="p-1 text-gray-400 dark:text-white hover:bg-gray-100 rounded-lg"
+                    className="p-1 text-gray-400 dark:text-gray-500 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-lg"
                   >
                     {expandedTaskId === task.id ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
                   </button>
@@ -338,17 +338,17 @@ export default function ComplexTodo() {
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
-                    className="border-t border-gray-100 bg-gray-50/50"
+                    className="border-t border-gray-100 dark:border-slate-700 bg-gray-50/50 dark:bg-slate-800/50"
                   >
                     <div className="p-4 space-y-4">
                       {/* Description */}
                       <div>
-                        <label className="text-xs font-semibold text-gray-500 dark:text-white uppercase tracking-wider mb-1 block">Description</label>
+                        <label className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1 block">Description</label>
                         <textarea
                           value={task.description || ""}
                           onChange={(e) => updateTaskDetails(task.id, { description: e.target.value })}
                           placeholder="Add details..."
-                          className="w-full text-sm bg-white border border-gray-200 rounded-xl p-2.5 focus:outline-none focus:ring-1 focus:ring-pink-300 resize-none"
+                          className="w-full text-sm bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-xl p-2.5 focus:outline-none focus:ring-1 focus:ring-pink-300 resize-none"
                           rows={2}
                         />
                       </div>
@@ -356,11 +356,11 @@ export default function ComplexTodo() {
                       {/* Controls Row */}
                       <div className="flex items-center gap-3">
                         <div className="flex-1">
-                          <label className="text-xs font-semibold text-gray-500 dark:text-white uppercase tracking-wider mb-1 block">Priority</label>
+                          <label className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1 block">Priority</label>
                           <select
                             value={task.priority}
                             onChange={(e) => updateTaskDetails(task.id, { priority: e.target.value as any })}
-                            className="w-full text-sm bg-white border border-gray-200 rounded-xl p-2 focus:outline-none focus:ring-1 focus:ring-pink-300 capitalize"
+                            className="w-full text-sm bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-xl p-2 focus:outline-none focus:ring-1 focus:ring-pink-300 capitalize"
                           >
                             <option value="low">Low</option>
                             <option value="medium">Medium</option>
@@ -368,19 +368,19 @@ export default function ComplexTodo() {
                           </select>
                         </div>
                         <div className="flex-1">
-                          <label className="text-xs font-semibold text-gray-500 dark:text-white uppercase tracking-wider mb-1 block">Due Date</label>
+                          <label className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1 block">Due Date</label>
                           <input
                             type="date"
                             value={task.dueDate ? new Date(task.dueDate).toISOString().split('T')[0] : ""}
                             onChange={(e) => updateTaskDetails(task.id, { dueDate: e.target.value ? new Date(e.target.value).getTime() : null })}
-                            className="w-full text-sm bg-white border border-gray-200 rounded-xl p-2 focus:outline-none focus:ring-1 focus:ring-pink-300"
+                            className="w-full text-sm bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-xl p-2 focus:outline-none focus:ring-1 focus:ring-pink-300"
                           />
                         </div>
                       </div>
 
                       {/* Subtasks */}
                       <div>
-                        <label className="text-xs font-semibold text-gray-500 dark:text-white uppercase tracking-wider mb-2 block">Subtasks</label>
+                        <label className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2 block">Subtasks</label>
                         <div className="space-y-2">
                           {task.subtasks.map((st) => (
                             <div key={st.id} className="flex items-center gap-2 group">
@@ -392,12 +392,12 @@ export default function ComplexTodo() {
                               >
                                 {st.completed && <Check size={10} className="text-white" />}
                               </button>
-                              <span className={`text-sm flex-1 ${st.completed ? "text-gray-400 dark:text-white line-through" : "text-gray-600 dark:text-white"}`}>
+                              <span className={`text-sm flex-1 ${st.completed ? "text-gray-400 dark:text-gray-500 line-through" : "text-gray-600 dark:text-gray-300"}`}>
                                 {st.title}
                               </span>
                               <button
                                 onClick={() => deleteSubtask(task.id, st.id)}
-                                className="opacity-0 group-hover:opacity-100 p-1 text-gray-400 dark:text-white hover:text-red-500 transition-all"
+                                className="opacity-0 group-hover:opacity-100 p-1 text-gray-400 dark:text-gray-500 hover:text-red-500 transition-all"
                               >
                                 <Trash2 size={12} />
                               </button>
@@ -414,17 +414,17 @@ export default function ComplexTodo() {
                                   e.currentTarget.value = "";
                                 }
                               }}
-                              className="text-sm bg-transparent border-b border-gray-200 focus:border-pink-400 focus:outline-none w-full py-1 text-gray-700 dark:text-white"
+                              className="text-sm bg-transparent border-b border-gray-200 dark:border-slate-700 focus:border-pink-400 focus:outline-none w-full py-1 text-gray-700 dark:text-gray-200"
                             />
                           </div>
                         </div>
                       </div>
 
                       {/* Delete Task Button */}
-                      <div className="pt-2 border-t border-gray-100 flex justify-end">
+                      <div className="pt-2 border-t border-gray-100 dark:border-slate-700 flex justify-end">
                         <button
                           onClick={() => deleteTask(task.id)}
-                          className="flex items-center gap-1.5 text-xs text-red-500 bg-red-50 hover:bg-red-100 px-3 py-1.5 rounded-lg transition-colors font-medium"
+                          className="flex items-center gap-1.5 text-xs text-red-500 bg-red-50 dark:bg-red-900/30 hover:bg-red-100 dark:hover:bg-red-900/40 px-3 py-1.5 rounded-lg transition-colors font-medium"
                         >
                           <Trash2 size={12} /> Delete Entire Task
                         </button>
@@ -441,10 +441,10 @@ export default function ComplexTodo() {
               animate={{ opacity: 1 }}
               className="text-center py-8"
             >
-              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-pink-100 to-rose-100 flex items-center justify-center mx-auto mb-3">
+              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-pink-100 to-rose-100 dark:from-pink-900/30 dark:to-rose-900/30 flex items-center justify-center mx-auto mb-3">
                 <Check size={28} className="text-pink-400" />
               </div>
-              <p className="text-sm text-gray-500 dark:text-white">You&apos;re all caught up, bnuy! ✨</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">You&apos;re all caught up, bnuy! ✨</p>
             </motion.div>
           )}
         </AnimatePresence>
