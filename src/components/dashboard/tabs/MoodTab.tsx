@@ -120,6 +120,7 @@ function PhotoGallery() {
 export default function MoodPage() {
   const [selectedMood, setSelectedMood] = useState<Mood>(null);
   const [moodMessage, setMoodMessage] = useState("");
+  const [randomPlaylist, setRandomPlaylist] = useState<string>("");
   const [mounted, setMounted] = useState(false);
   const [logs, setLogs] = useState<{ mood: NonNullable<Mood>; timestamp: string }[]>([]);
 
@@ -172,7 +173,9 @@ export default function MoodPage() {
       prevLogs.sort((a: any, b: any) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
       setLogs(prevLogs.slice(0, 5));
 
-      // Set appropriate message
+      // Set appropriate message & randomize playlist
+      setRandomPlaylist(PLAYLISTS[Math.floor(Math.random() * PLAYLISTS.length)]);
+
       switch (mood) {
         case "happy":
           setMoodMessage(getRandomQuote(happyMessages));
@@ -355,7 +358,7 @@ export default function MoodPage() {
                   </div>
                   <div className="rounded-xl overflow-hidden">
                     <iframe
-                      src={PLAYLISTS[0]}
+                      src={randomPlaylist || PLAYLISTS[0]}
                       width="100%"
                       height="152"
                       frameBorder="0"
@@ -411,7 +414,7 @@ export default function MoodPage() {
                   </div>
                   <div className="rounded-xl overflow-hidden">
                     <iframe
-                      src={PLAYLISTS[1]}
+                      src={randomPlaylist || PLAYLISTS[1]}
                       width="100%"
                       height="152"
                       frameBorder="0"
@@ -463,7 +466,7 @@ export default function MoodPage() {
                   </div>
                   <div className="rounded-xl overflow-hidden">
                     <iframe
-                      src={PLAYLISTS[2]}
+                      src={randomPlaylist || PLAYLISTS[2]}
                       width="100%"
                       height="152"
                       frameBorder="0"

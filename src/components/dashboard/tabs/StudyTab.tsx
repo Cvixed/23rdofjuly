@@ -155,7 +155,7 @@ export default function StudyRoomPage() {
             </div>
             <iframe
               style={{ borderRadius: "12px" }}
-              src="https://embed.music.apple.com/id/playlist/nikis-version/pl.u-Ymb0vdyFg0YpJvy"
+              src="https://open.spotify.com/embed/playlist/37i9dQZF1DX8Uebhn9wzrS?utm_source=generator&theme=0"
               width="100%"
               height="152"
               frameBorder="0"
