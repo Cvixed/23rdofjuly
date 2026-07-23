@@ -22,6 +22,36 @@ export default function ChatPage() {
   };
 
   useEffect(() => {
+    const savedMessages = localStorage.getItem("naia-chat-messages");
+    const lastReset = localStorage.getItem("naia-chat-last-reset");
+    const now = Date.now();
+    const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
+
+    if (!lastReset) {
+      localStorage.setItem("naia-chat-last-reset", now.toString());
+    } else if (now - parseInt(lastReset, 10) > SEVEN_DAYS_MS) {
+      localStorage.removeItem("naia-chat-messages");
+      localStorage.setItem("naia-chat-last-reset", now.toString());
+      setMessages([]);
+      return;
+    }
+
+    if (savedMessages) {
+      try {
+        setMessages(JSON.parse(savedMessages));
+      } catch (e) {
+        console.error("Failed to parse saved chat messages", e);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (messages.length > 0) {
+      localStorage.setItem("naia-chat-messages", JSON.stringify(messages));
+    }
+  }, [messages]);
+
+  useEffect(() => {
     scrollToBottom();
   }, [messages, isLoading]);
 
@@ -134,7 +164,7 @@ export default function ChatPage() {
       <motion.div
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="px-4 pt-6 pb-3"
+        className="px-4 pt-6 pb-3 flex items-center justify-between"
       >
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center shadow-md shadow-pink-200/40">
@@ -144,12 +174,26 @@ export default function ChatPage() {
             <h1 className="text-lg font-bold text-gray-800 dark:text-white">NaiaBot</h1>
             <div className="flex items-center gap-1.5">
               <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-              <p className="text-xs text-gray-500 dark:text-white">
+              <p className="text-xs text-gray-500 dark:text-gray-400">
                 Always here for you, bnuy 💗
               </p>
             </div>
           </div>
         </div>
+        {messages.length > 0 && (
+          <button
+            onClick={() => {
+              if (confirm("Clear chat history?")) {
+                setMessages([]);
+                localStorage.removeItem("naia-chat-messages");
+              }
+            }}
+            className="text-xs text-gray-500 dark:text-gray-400 hover:text-red-400 transition-colors px-2.5 py-1 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800"
+            title="Clear Chat"
+          >
+            Clear
+          </button>
+        )}
       </motion.div>
 
       {/* Messages Area */}
