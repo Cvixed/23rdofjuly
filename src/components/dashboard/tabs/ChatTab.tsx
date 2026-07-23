@@ -2,7 +2,17 @@
 
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Send, Bot, User, Sparkles } from "lucide-react";
+import {
+  Send,
+  Bot,
+  User,
+  Sparkles,
+  Plus,
+  History,
+  Trash2,
+  X,
+  MessageSquare,
+} from "lucide-react";
 
 interface Message {
   id: string;
@@ -10,10 +20,23 @@ interface Message {
   content: string;
 }
 
+interface ChatSession {
+  id: string;
+  title: string;
+  createdAt: number;
+  messages: Message[];
+}
+
+const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
+
 export default function ChatPage() {
+  const [sessions, setSessions] = useState<ChatSession[]>([]);
+  const [activeSessionId, setActiveSessionId] = useState<string | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isHistoryOpen, setIsHistoryOpen] = useState(false);
+
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -21,39 +44,78 @@ export default function ChatPage() {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
+  // Load sessions on mount & purge >7 days old
   useEffect(() => {
-    const savedMessages = localStorage.getItem("naia-chat-messages");
-    const lastReset = localStorage.getItem("naia-chat-last-reset");
+    const saved = localStorage.getItem("naia-chat-sessions");
     const now = Date.now();
-    const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
 
-    if (!lastReset) {
-      localStorage.setItem("naia-chat-last-reset", now.toString());
-    } else if (now - parseInt(lastReset, 10) > SEVEN_DAYS_MS) {
-      localStorage.removeItem("naia-chat-messages");
-      localStorage.setItem("naia-chat-last-reset", now.toString());
-      setMessages([]);
-      return;
-    }
-
-    if (savedMessages) {
+    if (saved) {
       try {
-        setMessages(JSON.parse(savedMessages));
+        const parsed: ChatSession[] = JSON.parse(saved);
+        // Filter out sessions older than 7 days
+        const validSessions = parsed.filter(
+          (s) => now - s.createdAt < SEVEN_DAYS_MS
+        );
+        setSessions(validSessions);
+        if (validSessions.length > 0) {
+          setActiveSessionId(validSessions[0].id);
+          setMessages(validSessions[0].messages);
+        }
       } catch (e) {
-        console.error("Failed to parse saved chat messages", e);
+        console.error("Failed to load chat sessions", e);
       }
     }
   }, []);
 
-  useEffect(() => {
-    if (messages.length > 0) {
-      localStorage.setItem("naia-chat-messages", JSON.stringify(messages));
-    }
-  }, [messages]);
+  // Save sessions to localStorage whenever sessions change
+  const saveSessionsToStorage = (updatedSessions: ChatSession[]) => {
+    setSessions(updatedSessions);
+    localStorage.setItem("naia-chat-sessions", JSON.stringify(updatedSessions));
+  };
 
+  // Scroll to bottom on message update
   useEffect(() => {
     scrollToBottom();
   }, [messages, isLoading]);
+
+  // Handle switching active session
+  const selectSession = (sessionId: string) => {
+    const session = sessions.find((s) => s.id === sessionId);
+    if (session) {
+      setActiveSessionId(sessionId);
+      setMessages(session.messages);
+    }
+    setIsHistoryOpen(false);
+  };
+
+  // Start new chat session
+  const startNewChat = () => {
+    setActiveSessionId(null);
+    setMessages([]);
+    setIsHistoryOpen(false);
+  };
+
+  // Delete specific session
+  const deleteSession = (sessionId: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    const updated = sessions.filter((s) => s.id !== sessionId);
+    saveSessionsToStorage(updated);
+
+    if (activeSessionId === sessionId) {
+      if (updated.length > 0) {
+        setActiveSessionId(updated[0].id);
+        setMessages(updated[0].messages);
+      } else {
+        startNewChat();
+      }
+    }
+  };
+
+  // Clear all history
+  const clearAllHistory = () => {
+    saveSessionsToStorage([]);
+    startNewChat();
+  };
 
   const handleSubmit = async (e: React.FormEvent, presetMessage?: string) => {
     e?.preventDefault();
@@ -66,7 +128,8 @@ export default function ChatPage() {
       content: messageText.trim(),
     };
 
-    setMessages((prev) => [...prev, userMessage]);
+    const newMessages = [...messages, userMessage];
+    setMessages(newMessages);
     setInput("");
     setIsLoading(true);
 
@@ -74,17 +137,41 @@ export default function ChatPage() {
       textareaRef.current.style.height = "auto";
     }
 
+    // Determine or create current session
+    let currentSessionId = activeSessionId;
+    let updatedSessions = [...sessions];
+
+    if (!currentSessionId) {
+      currentSessionId = crypto.randomUUID();
+      setActiveSessionId(currentSessionId);
+      const title = messageText.trim().length > 30 
+        ? messageText.trim().slice(0, 30) + "..." 
+        : messageText.trim();
+
+      const newSession: ChatSession = {
+        id: currentSessionId,
+        title: title,
+        createdAt: Date.now(),
+        messages: newMessages,
+      };
+      updatedSessions = [newSession, ...sessions];
+    } else {
+      updatedSessions = sessions.map((s) =>
+        s.id === currentSessionId ? { ...s, messages: newMessages } : s
+      );
+    }
+    saveSessionsToStorage(updatedSessions);
+
     try {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 25000);
-
       const currentMood = localStorage.getItem("naia-mood") || "Neutral";
 
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          messages: [...messages, userMessage].map((m) => ({
+          messages: newMessages.map((m) => ({
             role: m.role,
             content: m.content,
           })),
@@ -110,32 +197,23 @@ export default function ChatPage() {
 
       if (reader) {
         let done = false;
+        let accumulatedContent = "";
         while (!done) {
           const { value, done: readerDone } = await reader.read();
           done = readerDone;
           if (value) {
             const chunk = decoder.decode(value, { stream: true });
-            assistantMessage.content += chunk;
-            setMessages((prev) =>
-              prev.map((m) =>
-                m.id === assistantMessage.id
-                  ? { ...m, content: assistantMessage.content }
-                  : m
-              )
+            accumulatedContent += chunk;
+            const updatedWithAssistant = [...newMessages, { ...assistantMessage, content: accumulatedContent }];
+            setMessages(updatedWithAssistant);
+
+            // Sync with session storage
+            const synced = updatedSessions.map((s) =>
+              s.id === currentSessionId ? { ...s, messages: updatedWithAssistant } : s
             );
+            saveSessionsToStorage(synced);
           }
         }
-      }
-
-      if (!assistantMessage.content.trim()) {
-        assistantMessage.content = "Hmm, I got a little tongue-tied there! 😅 Try asking me again, bnuy? 💗";
-        setMessages((prev) =>
-          prev.map((m) =>
-            m.id === assistantMessage.id
-              ? { ...m, content: assistantMessage.content }
-              : m
-          )
-        );
       }
     } catch (error) {
       console.error("Chat error:", error);
@@ -147,20 +225,15 @@ export default function ChatPage() {
           ? "Sorry bnuy, I took too long to think! 🐰 My brain needs a sec. Try again? 💗"
           : "Oops, I'm having trouble connecting right now. But hey, just know that you're amazing and loved, bnuy! 💗 Try again in a moment?",
       };
-      setMessages((prev) => {
-        const filtered = prev.filter(
-          (m) => m.role !== "assistant" || m.content !== ""
-        );
-        return [...filtered, errorMessage];
-      });
+      setMessages((prev) => [...prev, errorMessage]);
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="max-w-lg mx-auto flex flex-col h-[calc(100vh-100px)]">
-      {/* Header */}
+    <div className="max-w-lg mx-auto flex flex-col h-[calc(100vh-100px)] relative">
+      {/* Header with Gemini-like Controls */}
       <motion.div
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -180,21 +253,118 @@ export default function ChatPage() {
             </div>
           </div>
         </div>
-        {messages.length > 0 && (
+
+        {/* Gemini Action Controls: New Chat & History Drawer */}
+        <div className="flex items-center gap-2">
           <button
-            onClick={() => {
-              if (confirm("Clear chat history?")) {
-                setMessages([]);
-                localStorage.removeItem("naia-chat-messages");
-              }
-            }}
-            className="text-xs text-gray-500 dark:text-gray-400 hover:text-red-400 transition-colors px-2.5 py-1 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800"
-            title="Clear Chat"
+            onClick={startNewChat}
+            className="flex items-center gap-1 text-xs font-semibold bg-pink-50 dark:bg-pink-900/30 text-pink-600 dark:text-pink-300 border border-pink-200 dark:border-pink-800/50 px-3 py-1.5 rounded-xl hover:bg-pink-100 dark:hover:bg-pink-900/50 transition-all shadow-sm"
+            title="Start New Chat"
           >
-            Clear
+            <Plus size={14} /> New Chat
           </button>
-        )}
+          
+          <button
+            onClick={() => setIsHistoryOpen(true)}
+            className="p-2 rounded-xl bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-gray-300 hover:text-pink-500 transition-colors"
+            title="Chat History"
+          >
+            <History size={18} />
+          </button>
+        </div>
       </motion.div>
+
+      {/* History Drawer Overlay */}
+      <AnimatePresence>
+        {isHistoryOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex justify-end"
+            onClick={() => setIsHistoryOpen(false)}
+          >
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              className="w-80 max-w-[85vw] h-full bg-white dark:bg-slate-900 shadow-2xl p-5 flex flex-col justify-between"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div>
+                <div className="flex items-center justify-between pb-4 border-b border-gray-100 dark:border-slate-800">
+                  <div className="flex items-center gap-2">
+                    <History size={18} className="text-pink-500" />
+                    <h2 className="font-bold text-gray-800 dark:text-white text-base">Chat History</h2>
+                  </div>
+                  <button
+                    onClick={() => setIsHistoryOpen(false)}
+                    className="p-1 rounded-lg text-gray-400 hover:text-gray-600 dark:hover:text-white"
+                  >
+                    <X size={20} />
+                  </button>
+                </div>
+
+                <div className="mt-4 space-y-2 max-h-[70vh] overflow-y-auto custom-scrollbar">
+                  <button
+                    onClick={startNewChat}
+                    className="w-full flex items-center gap-2 p-3 rounded-xl border border-dashed border-pink-300 dark:border-pink-800 text-pink-500 dark:text-pink-400 text-sm font-medium hover:bg-pink-50 dark:hover:bg-pink-900/20 transition-all"
+                  >
+                    <Plus size={16} /> + New Chat
+                  </button>
+
+                  {sessions.length === 0 ? (
+                    <p className="text-xs text-gray-400 dark:text-gray-500 text-center py-6">
+                      No chat history yet!
+                    </p>
+                  ) : (
+                    sessions.map((s) => {
+                      const isActive = s.id === activeSessionId;
+                      return (
+                        <div
+                          key={s.id}
+                          onClick={() => selectSession(s.id)}
+                          className={`flex items-center justify-between p-3 rounded-xl cursor-pointer transition-all ${
+                            isActive
+                              ? "bg-pink-50 dark:bg-pink-900/30 border border-pink-200 dark:border-pink-800/50 text-pink-600 dark:text-pink-300"
+                              : "hover:bg-gray-50 dark:hover:bg-slate-800 text-gray-700 dark:text-gray-300"
+                          }`}
+                        >
+                          <div className="flex items-center gap-2.5 truncate">
+                            <MessageSquare size={16} className={isActive ? "text-pink-500" : "text-gray-400"} />
+                            <span className="text-xs font-medium truncate max-w-[170px]">
+                              {s.title}
+                            </span>
+                          </div>
+                          <button
+                            onClick={(e) => deleteSession(s.id, e)}
+                            className="p-1 text-gray-400 hover:text-red-500 transition-colors"
+                            title="Delete Chat"
+                          >
+                            <Trash2 size={14} />
+                          </button>
+                        </div>
+                      );
+                    })
+                  )}
+                </div>
+              </div>
+
+              {sessions.length > 0 && (
+                <div className="pt-4 border-t border-gray-100 dark:border-slate-800">
+                  <button
+                    onClick={clearAllHistory}
+                    className="w-full py-2 text-xs text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-xl transition-colors font-medium flex items-center justify-center gap-1.5"
+                  >
+                    <Trash2 size={14} /> Clear All History (Auto-resets weekly)
+                  </button>
+                </div>
+              )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Messages Area */}
       <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3 custom-scrollbar">
@@ -210,7 +380,7 @@ export default function ChatPage() {
             <h3 className="font-semibold text-gray-700 dark:text-white mb-1">
               Hey there, bnuy! 🐰
             </h3>
-            <p className="text-sm text-gray-500 dark:text-white max-w-[250px]">
+            <p className="text-sm text-gray-500 dark:text-gray-400 max-w-[250px]">
               I&apos;m NaiaBot, your personal companion. Tell me anything —
               I&apos;m all ears! 💕
             </p>
